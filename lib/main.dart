@@ -41,6 +41,19 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         } catch (e) {
           _result = 'Error';
         }
+      } else if (value == '^2') {
+        try {
+          final expression = Expression.parse(_expression);
+          final evaluator = const ExpressionEvaluator();
+          final result = evaluator.eval(expression, {});
+          final squaredResult = result * result;
+          _expression = squaredResult.toString();
+          _result = squaredResult.toString();
+        } catch (e) {
+          _result = 'Error';
+        }
+      } else if (value == '%') {
+        _expression += '%';
       } else {
         _expression += value;
       }
@@ -116,6 +129,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                   _buildButton('C'),
                   _buildButton('='),
                   _buildButton('+'),
+                ],
+              ),
+              Row(
+                children: [
+                  _buildButton('^2'),
+                  _buildButton('%'),
                 ],
               ),
             ],
